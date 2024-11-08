@@ -1,4 +1,4 @@
-package com.alvarengadev.cryptotracker.util
+package com.alvarengadev.cryptotracker.core.presentation.util
 
 import com.alvarengadev.cryptotracker.R
 
