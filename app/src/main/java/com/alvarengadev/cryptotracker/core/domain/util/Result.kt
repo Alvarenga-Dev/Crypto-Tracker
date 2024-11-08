@@ -1,4 +1,4 @@
-package com.alvarengadev.cryptotracker.crypto.core.util
+package com.alvarengadev.cryptotracker.core.domain.util
 
 typealias DomainError = Error
 
