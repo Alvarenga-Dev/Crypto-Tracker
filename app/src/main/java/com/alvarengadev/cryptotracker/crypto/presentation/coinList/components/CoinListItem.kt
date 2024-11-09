@@ -1,4 +1,4 @@
-package com.alvarengadev.cryptotracker.crypto.presentation.coin_list.components
+package com.alvarengadev.cryptotracker.crypto.presentation.coinList.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme

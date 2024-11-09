@@ -1,4 +1,4 @@
-package com.alvarengadev.cryptotracker.crypto.presentation.coin_list.components
+package com.alvarengadev.cryptotracker.crypto.presentation.coinList.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import com.alvarengadev.cryptotracker.crypto.presentation.models.toCoinUi
+import com.alvarengadev.cryptotracker.crypto.presentation.coinList.viewmodel.CoinListState
 import com.alvarengadev.cryptotracker.ui.theme.CryptoTrackerTheme
 
 @Composable
