@@ -1,4 +1,4 @@
-package com.alvarengadev.cryptotracker.crypto.presentation.coinList.viewmodel
+package com.alvarengadev.cryptotracker.crypto.presentation.coinList
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -7,9 +7,11 @@ import com.alvarengadev.cryptotracker.core.domain.util.onSuccess
 import com.alvarengadev.cryptotracker.crypto.domain.Coin
 import com.alvarengadev.cryptotracker.crypto.domain.CoinDataSource
 import com.alvarengadev.cryptotracker.crypto.presentation.models.toCoinUi
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -26,6 +28,9 @@ class CoinListViewModel(
             SharingStarted.WhileSubscribed(5000L),
             CoinListState()
         )
+
+    private val _event = Channel<CoinListEvent>()
+    val event = _event.receiveAsFlow()
 
     fun onAction(action: CoinListAction) {
         when (action) {
@@ -55,10 +60,11 @@ class CoinListViewModel(
                         )
                     }
                 }
-                .onError {
+                .onError { error ->
                     _state.update {
                         it.copy(isLoading = false)
                     }
+                    _event.send(CoinListEvent.Error(error))
                 }
         }
     }
