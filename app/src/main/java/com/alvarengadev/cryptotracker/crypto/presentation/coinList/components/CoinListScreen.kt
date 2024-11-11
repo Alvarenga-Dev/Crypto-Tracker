@@ -13,16 +13,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import com.alvarengadev.cryptotracker.crypto.presentation.coinList.CoinListEvent
 import com.alvarengadev.cryptotracker.crypto.presentation.coinList.CoinListState
 import com.alvarengadev.cryptotracker.ui.theme.CryptoTrackerTheme
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.emptyFlow
 
 @Composable
 fun CoinListScreen(
     state: CoinListState,
-    events: Flow<CoinListEvent>,
     modifier: Modifier = Modifier
 ) {
     if (state.isLoading) {
@@ -57,8 +53,7 @@ private fun CoinListScreenPreview() {
             state = CoinListState(
                 coins = (1..10).map { previewCoin.copy(id = it.toString())},
                 isLoading = false,
-            ),
-            events = emptyFlow()
+            )
         )
     }
 }

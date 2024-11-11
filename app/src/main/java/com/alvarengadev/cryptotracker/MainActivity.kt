@@ -49,7 +49,6 @@ class MainActivity : ComponentActivity() {
                     }
                     CoinListScreen(
                         state = state,
-                        events = viewModel.event,
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
