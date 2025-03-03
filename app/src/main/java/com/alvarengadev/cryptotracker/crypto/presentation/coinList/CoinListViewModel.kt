@@ -6,6 +6,7 @@ import com.alvarengadev.cryptotracker.core.domain.util.onError
 import com.alvarengadev.cryptotracker.core.domain.util.onSuccess
 import com.alvarengadev.cryptotracker.crypto.domain.Coin
 import com.alvarengadev.cryptotracker.crypto.domain.CoinDataSource
+import com.alvarengadev.cryptotracker.crypto.presentation.models.CoinUi
 import com.alvarengadev.cryptotracker.crypto.presentation.models.toCoinUi
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,6 +16,7 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.time.ZonedDateTime
 
 class CoinListViewModel(
     private val coinDataSource: CoinDataSource
@@ -35,13 +37,35 @@ class CoinListViewModel(
     fun onAction(action: CoinListAction) {
         when (action) {
             is CoinListAction.OnCoinClick -> {
-                _state.update {
-                    it.copy(selectedCoin = action.coin)
-                }
+//                _state.update {
+//                    it.copy(selectedCoin = action.coin)
+//                }
+                selectCoin(coin = action.coin)
             }
             CoinListAction.OnRefresh -> {
                 loadCoins()
             }
+        }
+    }
+
+    private fun selectCoin(coin: CoinUi) {
+        _state.update {
+            it.copy(selectedCoin = coin)
+        }
+
+        viewModelScope.launch {
+            coinDataSource
+                .getCoinHistory(
+                    coinId = coin.id,
+                    start = ZonedDateTime.now().minusDays(5),
+                    end = ZonedDateTime.now()
+                )
+                .onSuccess { history ->
+                    println(history)
+                }
+                .onError { error ->
+                    _event.send(CoinListEvent.Error(error))
+                }
         }
     }
 
