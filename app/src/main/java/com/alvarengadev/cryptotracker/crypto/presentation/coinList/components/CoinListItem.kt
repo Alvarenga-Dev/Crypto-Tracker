@@ -20,6 +20,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewDynamicColors
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -90,8 +91,7 @@ fun CoinListItem(
     }
 }
 
-@Preview
-@PreviewLightDark
+@PreviewDynamicColors
 @Composable
 private fun CoinListItemPreview() {
     CryptoTrackerTheme {
@@ -109,5 +109,5 @@ internal val previewCoin = Coin(
     symbol = "BTC",
     marketCapUsd = 47182739812.12,
     priceUsd = 62382902.82,
-    changePercent24Hr = -0.1
+    changePercent24Hr = 0.1
 ).toCoinUi()
